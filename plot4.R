@@ -1,0 +1,13 @@
+df <-read.table("C:/Users/Vahidu/Desktop/Vahid/household_power_consumption.txt", header = TRUE,sep=";")
+wdf <- df[df$Date %in% c("1/2/2007" , "2/2/2007"),]
+wdf$Sub_metering_1 <- as.numeric(as.character(wdf$Sub_metering_1))
+wdf$Sub_metering_2 <- as.numeric(as.character(wdf$Sub_metering_2))
+wdf$Sub_metering_3 <- as.numeric(as.character(wdf$Sub_metering_3))
+z <- paste(wdf$Date, wdf$Time, sep = " ")
+dt <- strptime(z, "%d/%m/%Y %H:%M:%S")
+png(file = "plot3.png", width = 480, height = 480, units = "px")
+plot(dt,wdf$Sub_metering_1, type = "l", col = "black", xlab="",ylab ="Energy sub metering")
+lines(dt,wdf$Sub_metering_2, col = "red", xlab="",ylab ="Energy sub metering") 
+lines(dt,wdf$Sub_metering_3, col = "blue", xlab="",ylab ="Energy sub metering") 
+legend("topright", col = c("black", "red", "blue"), c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), lty = 1, lwd = 1.5)
+dev.off()
